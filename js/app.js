@@ -1,9 +1,27 @@
-$(document).ready(function() {
-    $('#logoU').click(function(){
-        $('html, body').animate({scrollTop:0}, 'slow');
-        return false;
-    });
-});
+// You don't have to import JQuery to load your JS script after the DOM
+// No tienes porque importar JQuery para cargar el script luego del DOM
+
+// $(document).ready(function() {
+//     $('#logoU').click(function(){
+//         $('html, body').animate({scrollTop:0}, 'slow');
+//         return false;
+//     });
+// });
+
+// You can do it by using anonymous or setUp vanilla JavaScript functions
+// Puedes hacerlo llamando a una función anónima o setUp de JavaScript puro
+
+function setUp() {
+    /*
+    Función que da inicio a todo el JS script luego de que cargue el DOM.
+    */
+    var logoAnimado = document.getElementById("logoU");
+    logoAnimado.addEventListener("click", animacion, false);
+}
+
+function animacion(event) {  // Continue from here
+    event.animate({scrollTop:0}, 'slow');
+}
 
 // Carrito
 const carrito = document.querySelector('#carrito');
@@ -51,8 +69,8 @@ function eliminaCurso(e){
                     articulosCarrito = articulosCarrito.filter( curso => curso.id !== idCurso );
                     carritoHTML();
                 }
-            }    
-        })    
+            }
+        })
     }
 }
 
@@ -92,11 +110,9 @@ function carritoHTML(){
     limpiarHTML();
 
     articulosCarrito.forEach( curso => {
-
         const { imagen, titulo, precio, cantidad, id } = curso;
         const row = document.createElement('tr');
-        row.innerHTML = 
-        `
+        row.innerHTML =`
             <td>
                 <img src="${imagen}" width="100">
             </td>
@@ -113,8 +129,7 @@ function carritoHTML(){
                 <a href="#" class="borrar-curso" data-id="${id}" >
                     X
                 </a>
-            </td>
-        `;
+            </td>`;
 
         contenedorCarrito.appendChild(row);
     })
@@ -128,3 +143,5 @@ function limpiarHTML(){
         contenedorCarrito.removeChild(contenedorCarrito.firstChild)
     }
 }
+
+window.addEventListener('load', setUp, false);  // Starts the script
