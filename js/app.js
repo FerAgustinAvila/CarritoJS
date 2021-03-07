@@ -1,8 +1,8 @@
 $(document).ready(function() {
-	$('#logoU').click(function(){
-		$('html, body').animate({scrollTop:0}, 'slow');
-		return false;
-	});
+    $('#logoU').click(function(){
+        $('html, body').animate({scrollTop:0}, 'slow');
+        return false;
+    });
 });
 
 // Carrito
@@ -14,117 +14,117 @@ let articulosCarrito = [];
 
 cargarEventListener();
 function cargarEventListener(){
-	// Agregar curso al presionar "Agregar al carrito"
-	listaCursos.addEventListener('click', agregarCurso)
+    // Agregar curso al presionar "Agregar al carrito"
+    listaCursos.addEventListener('click', agregarCurso)
 
-	// Elimina curso del carrito
-	carrito.addEventListener('click', eliminaCurso)
+    // Elimina curso del carrito
+    carrito.addEventListener('click', eliminaCurso)
 
-	// Vaciar carrito
-	vaciarCarritoBtn.addEventListener('click', () => {
-		articulosCarrito = [];
-		limpiarHTML();
-	})
+    // Vaciar carrito
+    vaciarCarritoBtn.addEventListener('click', () => {
+        articulosCarrito = [];
+        limpiarHTML();
+    })
 }
 
 // Funciones
 function agregarCurso(e){
-	e.preventDefault();
-	if ( e.target.classList.contains('agregar-carrito') ){
-		const cursoSeleccionado = e.target.parentElement.parentElement;
-		leerDatosCurso(cursoSeleccionado);
-	}
+    e.preventDefault();
+    if ( e.target.classList.contains('agregar-carrito') ){
+        const cursoSeleccionado = e.target.parentElement.parentElement;
+        leerDatosCurso(cursoSeleccionado);
+    }
 }
 
 function eliminaCurso(e){
-	e.preventDefault();	
-	if ( e.target.classList.contains('borrar-curso') ){
-		const idCurso = e.target.getAttribute('data-id');
+    e.preventDefault();
+    if ( e.target.classList.contains('borrar-curso') ){
+        const idCurso = e.target.getAttribute('data-id');
 
-		// Eliminar del arreglo
-		articulosCarrito.forEach( curso => {
-			if( curso.id === idCurso){
-				if( curso.cantidad > 1 ) {
-					curso.cantidad--;
-					carritoHTML();
-				} else {
-					articulosCarrito = articulosCarrito.filter( curso => curso.id !== idCurso );
-					carritoHTML();
-				}
-			}	
-		})	
-	}
+        // Eliminar del arreglo
+        articulosCarrito.forEach( curso => {
+            if( curso.id === idCurso){
+                if( curso.cantidad > 1 ) {
+                    curso.cantidad--;
+                    carritoHTML();
+                } else {
+                    articulosCarrito = articulosCarrito.filter( curso => curso.id !== idCurso );
+                    carritoHTML();
+                }
+            }    
+        })    
+    }
 }
 
 function leerDatosCurso(curso){
-	const infoCurso = {
-		imagen: curso.querySelector('img').src,
-		titulo: curso.querySelector('h4').textContent,
-		precio: curso.querySelector('.precio span').textContent,
-		id: curso.querySelector('a').getAttribute('data-id'),
-		cantidad: 1
-	}
+    const infoCurso = {
+        imagen: curso.querySelector('img').src,
+        titulo: curso.querySelector('h4').textContent,
+        precio: curso.querySelector('.precio span').textContent,
+        id: curso.querySelector('a').getAttribute('data-id'),
+        cantidad: 1
+    }
 
-	// Revisar si existe un elemento
-	const existe = articulosCarrito.some( curso => curso.id === infoCurso.id );
-	if (existe) {
-		const cursos = articulosCarrito.map( curso => {
-			if ( curso.id === infoCurso.id ) {
-				curso.cantidad++;
-				return curso // retorna objeto actualizado
-			} else {
-				return curso // retorna objeto que no son duplicados
-			}
-		})		
-		articulosCarrito = [ ...cursos ]
-	} else {
-		articulosCarrito = [ ...articulosCarrito, infoCurso ]
-	}
+    // Revisar si existe un elemento
+    const existe = articulosCarrito.some( curso => curso.id === infoCurso.id );
+    if (existe) {
+        const cursos = articulosCarrito.map( curso => {
+            if ( curso.id === infoCurso.id ) {
+                curso.cantidad++;
+                return curso // retorna objeto actualizado
+            } else {
+                return curso // retorna objeto que no son duplicados
+            }
+        })
+        articulosCarrito = [ ...cursos ]
+    } else {
+        articulosCarrito = [ ...articulosCarrito, infoCurso ]
+    }
 
-	console.log(articulosCarrito);
-	carritoHTML();
+    console.log(articulosCarrito);
+    carritoHTML();
 }
 
 
 function carritoHTML(){
 
-	// Limpiar HTML
-	limpiarHTML();
+    // Limpiar HTML
+    limpiarHTML();
 
-	articulosCarrito.forEach( curso => {
+    articulosCarrito.forEach( curso => {
 
-		const { imagen, titulo, precio, cantidad, id } = curso;
-		const row = document.createElement('tr');
-		row.innerHTML = 
-		`	
-			<td>
-				<img src="${imagen}" width="100">				
-			</td>
-			<td>
-				${titulo}
-			</td>
-			<td>
-				${precio}
-			</td>
-			<td>
-				${cantidad}
-			</td>
-			<td>
-				<a href="#" class="borrar-curso" data-id="${id}" >
-					X
-				</a>
-			</td>
-		`;
+        const { imagen, titulo, precio, cantidad, id } = curso;
+        const row = document.createElement('tr');
+        row.innerHTML = 
+        `
+            <td>
+                <img src="${imagen}" width="100">
+            </td>
+            <td>
+                ${titulo}
+            </td>
+            <td>
+                ${precio}
+            </td>
+            <td>
+                ${cantidad}
+            </td>
+            <td>
+                <a href="#" class="borrar-curso" data-id="${id}" >
+                    X
+                </a>
+            </td>
+        `;
 
-		contenedorCarrito.appendChild(row);
-	})
+        contenedorCarrito.appendChild(row);
+    })
 }
 
 // Elimina los cursos del tbody
 function limpiarHTML(){
-	// contenedorCarrito.innerHTML = '';
+    // contenedorCarrito.innerHTML = '';
 
-	while( contenedorCarrito.firstChild ){
-		contenedorCarrito.removeChild(contenedorCarrito.firstChild)
-	}
+    while( contenedorCarrito.firstChild ){
+        contenedorCarrito.removeChild(contenedorCarrito.firstChild)
+    }
 }
