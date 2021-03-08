@@ -11,17 +11,33 @@
 // You can do it by using anonymous or setUp vanilla JavaScript functions
 // Puedes hacerlo llamando a una función anónima o setUp de JavaScript puro
 
+
 function setUp() {
     /*
     Función que da inicio a todo el JS script luego de que cargue el DOM.
     */
+    console.log("setUp");
     var logoAnimado = document.getElementById("logoU");
-    logoAnimado.addEventListener("click", animacion, false);
+    logoAnimado.addEventListener(
+        "click", function() {animacion(document.body, 0, 600)}, false);
 }
 
-function animacion(event) {  // Continue from here
-    event.animate({scrollTop:0}, 'slow');
+function animacion(elemento, tope, duracion) {  // Continue from here
+    /*
+    Concept of the function found here:
+    https://stackoverflow.com/questions/8917921/cross-browser-javascript-not-jquery-scroll-to-top-animation */
+    if (duracion <= 0) return;
+    var diferencia = tope - elemento.scrollTop;
+    var porTick = diferencia / duracion * 10;
+
+    setTimeout(
+        function() {
+            elemento.scrollTop = elemento.scrollTop + porTick;
+            if (elemento.scrollTop === tope) return;
+            scrollTo(elemento, tope, duracion - 10);
+        }, 10);
 }
+
 
 // Carrito
 const carrito = document.querySelector('#carrito');
@@ -66,7 +82,7 @@ function eliminaCurso(e){
                     curso.cantidad--;
                     carritoHTML();
                 } else {
-                    articulosCarrito = articulosCarrito.filter( curso => curso.id !== idCurso );
+                    articulosCarrito = articulosCarrito.filter(curso => curso.id !== idCurso);
                     carritoHTML();
                 }
             }
@@ -84,19 +100,19 @@ function leerDatosCurso(curso){
     }
 
     // Revisar si existe un elemento
-    const existe = articulosCarrito.some( curso => curso.id === infoCurso.id );
+    const existe = articulosCarrito.some(curso => curso.id === infoCurso.id);
     if (existe) {
-        const cursos = articulosCarrito.map( curso => {
-            if ( curso.id === infoCurso.id ) {
+        const cursos = articulosCarrito.map(curso => {
+            if (curso.id === infoCurso.id) {
                 curso.cantidad++;
                 return curso // retorna objeto actualizado
             } else {
                 return curso // retorna objeto que no son duplicados
             }
         })
-        articulosCarrito = [ ...cursos ]
+        articulosCarrito = [...cursos]
     } else {
-        articulosCarrito = [ ...articulosCarrito, infoCurso ]
+        articulosCarrito = [...articulosCarrito, infoCurso]
     }
 
     console.log(articulosCarrito);
