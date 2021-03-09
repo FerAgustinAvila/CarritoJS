@@ -16,26 +16,39 @@ function setUp() {
     /*
     Función que da inicio a todo el JS script luego de que cargue el DOM.
     */
-    console.log("setUp");
     var logoAnimado = document.getElementById("logoU");
     logoAnimado.addEventListener(
-        "click", function() {animacion(document.body, 0, 600)}, false);
+        "click", function() {animacion(document.documentElement, 0, 1300)}, false);
 }
 
 function animacion(elemento, tope, duracion) {  // Continue from here
     /*
     Concept of the function found here:
     https://stackoverflow.com/questions/8917921/cross-browser-javascript-not-jquery-scroll-to-top-animation */
-    if (duracion <= 0) return;
-    var diferencia = tope - elemento.scrollTop;
-    var porTick = diferencia / duracion * 10;
+    var inicio = elemento.scrollTop,
+        diferencia = tope - inicio,
+        incremento = 20;
 
-    setTimeout(
-        function() {
-            elemento.scrollTop = elemento.scrollTop + porTick;
-            if (elemento.scrollTop === tope) return;
-            scrollTo(elemento, tope, duracion - 10);
-        }, 10);
+    var animateScroll = function(elapsedTime) {
+        elapsedTime += incremento;
+        var posicion = easeInOut(elapsedTime, inicio, diferencia, duracion);
+        elemento.scrollTop = posicion;
+
+        if (elapsedTime < duracion) {
+            setTimeout(function() {animateScroll(elapsedTime);}, incremento);
+        }
+    }
+
+    animateScroll(0);
+}
+
+function easeInOut(tiempoActual, inicio, diferencia, duracion) {
+    tiempoActual /= duracion / 2;
+    if (tiempoActual < 1) {
+        return diferencia / 2 * tiempoActual * tiempoActual + inicio;
+    }
+    tiempoActual -= 1;
+    return -diferencia / 2 * (tiempoActual * (tiempoActual - 2) - 1) + inicio;
 }
 
 
