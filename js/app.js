@@ -18,39 +18,8 @@ function setUp() {
     */
     var logoAnimado = document.getElementById("logoU");
     logoAnimado.addEventListener(
-        "click", function() {animacion(document.documentElement, 0, 1050)}, false);
+        "click",function() {window.scrollBy({top: 0});}, false);
 }
-
-function animacion(elemento, tope, duracion) {
-    /*
-    Concept of the function found here:
-    https://stackoverflow.com/questions/8917921/cross-browser-javascript-not-jquery-scroll-to-top-animation */
-    var inicio = elemento.scrollTop,
-        diferencia = tope - inicio,
-        incremento = 20;
-
-    var animarDesplazamiento = function(tiempoPasado) {
-        tiempoPasado += incremento;
-        var posicion = easeInOut(tiempoPasado, inicio, diferencia, duracion);
-        elemento.scrollTop = posicion;
-
-        if (tiempoPasado < duracion) {
-            setTimeout(function() {animarDesplazamiento(tiempoPasado);}, incremento);
-        }
-    }
-
-    animarDesplazamiento(0);
-}
-
-function easeInOut(tiempoActual, inicio, diferencia, duracion) {
-    tiempoActual /= duracion / 2;
-    if (tiempoActual < 1) {
-        return diferencia / 2 * tiempoActual * tiempoActual + inicio;
-    }
-    tiempoActual -= 1;
-    return -diferencia / 2 * (tiempoActual * (tiempoActual - 2) - 1) + inicio;
-}
-
 
 // Carrito
 const carrito = document.querySelector('#carrito');
