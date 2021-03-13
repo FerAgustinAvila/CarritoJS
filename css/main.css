@@ -1,19 +1,25 @@
 html {
     font-size: 62.5%;
+    scroll-behavior: smooth;
 }
+
 body {
     background-color: #f5f3f3
 }
+
 h1 {
     text-align: center;
 }
+
 h2 {
     font-size: 3rem;
 }
+
 h4 {
     font-size: 16px;
     font-weight: 700;
 }
+
 header {
     padding: 20px 0 0 0;
     background: white;
@@ -23,11 +29,13 @@ header {
     z-index: 1;
     opacity: 0.96;
 }
+
 @media (min-width: 750px) {
     header {
         text-align: left;
     }
 }
+
 .borrar-curso {
     background-color: red;
     border-radius: 50%;
@@ -40,14 +48,17 @@ header {
 ul {
     list-style: none;
 }
+
 #hero {
     background-image:url(../img/hero.jpg);
     height: 350px;
     background-size: cover;
 }
+
 #encabezado {
     margin: 30px 0;
 }
+
 .submenu {
     position: relative;
 }
@@ -55,6 +66,7 @@ ul {
 .submenu #carrito{
     display: none;
 }
+
 .submenu:hover #carrito{
     display: block;
     position: absolute;
@@ -67,6 +79,7 @@ ul {
     min-height: 400px;
     min-width: 300px;
 }
+
 .vacio {
     padding: 10px;
     background-color: crimson;
@@ -74,18 +87,24 @@ ul {
     border-radius: 10px;
     color: white;
 }
+
 .contenido-hero {
     margin-top: 80px;
     color: white;
 }
+
 .contenido-hero form {
     position: relative;
     margin-bottom: 0;
 }
+
 .contenido-hero form #buscador {
     height: 50px;
     margin-bottom: 0;
+    color: #2c2c2cdc;
+    font-size: 23px;
 }
+
 .contenido-hero form .submit-buscador {
     position: absolute;
     right:0;
@@ -101,7 +120,6 @@ ul {
     border:none;
 }
 
-
 .barra {
     padding: 20px 0;
     background: #741d51; /* Old browsers */
@@ -115,6 +133,7 @@ ul {
     margin:0;
     color: white;
 }
+
 .icono {
     background-repeat: no-repeat;
     background-position: left center;
@@ -123,17 +142,21 @@ ul {
     margin-bottom: 40px;
     text-align: center;
 }
+
 @media (min-width: 750px) {
     .icono {
         margin-bottom:0;
     }
 }
+
 .icono1 {
     background-image: url(../img/icono1.png);
 }
+
 .icono2 {
     background-image: url(../img/icono2.png);
 }
+
 .icono3 {
     background-image: url(../img/icono3.png);
 }
@@ -141,6 +164,7 @@ ul {
 #lista-cursos .row {
     margin-bottom:20px;
 }
+
 .agregar-carrito {
     margin:10px 0;
 }
@@ -150,35 +174,39 @@ ul {
     border: 1px solid #e1e1e1;
     background: white;
 }
+
 @media (min-width: 550px) {
     .card {
         text-align: left;
     }
 }
-.info-card  {
+
+.info-card {
     padding: 10px 20px;
 }
 
-.info-card p, 
+.info-card p,
 .card h4 {
     margin-bottom: 5px;
 }
+
 .info-card .precio {
     text-decoration: line-through;
     font-size: 18px;
     margin-top: 10px;
 }
+
 .info-card .precio span {
     font-weight: 700;
     font-size: 22px;
 }
 
-
 .footer {
     margin-top: 40px;
     border-top:1px solid #aaa;;
-    padding-top: 40px;   
+    padding-top: 40px;
 }
+
 .footer .menu a{
 display: block;
 margin-bottom: 10px;
